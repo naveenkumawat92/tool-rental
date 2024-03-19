@@ -9,13 +9,12 @@ import java.time.LocalDate;
 public class ToolRentalApplication {
 
 	public static void main(String[] args) {
-//		SpringApplication.run(ToolRentalApplication.class, args);
 		Checkout jakr = new Checkout("JAKR",5,25, LocalDate.now());
 		Checkout ladw = new Checkout(null,5,0, LocalDate.of(2023, 7, 4));
 		Checkout chns = new Checkout("CHNS",5,25, LocalDate.of(2023, 7, 4));
 		try {
 			AgreementService agreementService = new AgreementService();
-			agreementService.checkOut(ladw);
+			agreementService.checkOut(jakr);
 		} catch (RequestException requestException) {
 			System.err.println(requestException.getMessage());
 		} catch (Exception exception) {

@@ -16,6 +16,8 @@ public class RentalAgreement {
     private BigDecimal discountAmount;
     private String finalCharge;
 
+    private String toolType;
+
     public String getToolCode() {
         return toolCode;
     }
@@ -96,9 +98,19 @@ public class RentalAgreement {
         this.finalCharge = finalCharge;
     }
 
+    public String getToolType() {
+        return toolType;
+    }
+
+    public void setToolType(String toolType) {
+        this.toolType = toolType;
+    }
+
     @Override
     public String toString() {
         return "RentalAgreement{" +
+                "toolCode=" + toolCode +
+                "toolType=" + toolType +
                 "checkoutDate=" + checkoutDate +
                 ", discountAmount=" + discountAmount +
                 ", discountPercent=" + discountPercent +

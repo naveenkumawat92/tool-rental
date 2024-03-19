@@ -4,6 +4,7 @@ package com.tool.rental;
 import com.tool.rental.exception.RequestException;
 import com.tool.rental.model.Checkout;
 import com.tool.rental.model.RentalAgreement;
+import com.tool.rental.model.RentalEnums;
 import com.tool.rental.service.AgreementService;
 import org.junit.Test;
 
@@ -19,8 +20,7 @@ public class ToolRentalApplicationTests {
     @Test
     public void testWeekDayIsChargeable() {
         AgreementService agreementService = new AgreementService();
-        Checkout jakr = new Checkout("JAKR", 5, 25, LocalDate.of(2015, 3, 9));
-        Checkout ladw = new Checkout("LADW", 5, 25, LocalDate.now());
+        Checkout jakr = new Checkout(RentalEnums.ToolCode.JAKR.name(),  5, 25, LocalDate.of(2015, 3, 9));
 //        Checkout chns = new Checkout("CHNS", 5, 25, );
         RentalAgreement rentalAgreement = agreementService.checkOut(jakr);
         assertNotNull(rentalAgreement);
@@ -30,7 +30,7 @@ public class ToolRentalApplicationTests {
     @Test
     public void testFinalPriceAfterDiscount() {
         AgreementService agreementService = new AgreementService();
-        Checkout ladw = new Checkout("LADW", 3, 10, LocalDate.of(2020, 2, 7));
+        Checkout ladw = new Checkout(RentalEnums.ToolCode.LADW.name(), 3, 10, LocalDate.of(2020, 2, 7));
         RentalAgreement rentalAgreement = agreementService.checkOut(ladw);
         assertEquals(getFinalValue("10.80"), rentalAgreement.getFinalCharge());
     }
@@ -38,7 +38,7 @@ public class ToolRentalApplicationTests {
     @Test
     public void testCHNS() {
         AgreementService agreementService = new AgreementService();
-        Checkout chns = new Checkout("CHNS", 5, 25, LocalDate.of(2015, 2, 7));
+        Checkout chns = new Checkout(RentalEnums.ToolCode.CHNA.name(), 5, 25, LocalDate.of(2015, 2, 7));
         RentalAgreement rentalAgreement = agreementService.checkOut(chns);
         assertEquals(getFinalValue("4.50"), rentalAgreement.getFinalCharge());
     }
@@ -46,7 +46,7 @@ public class ToolRentalApplicationTests {
     @Test
     public void testJAKDWithoutDiscount() {
         AgreementService agreementService = new AgreementService();
-        Checkout jakd = new Checkout("JAKD", 6, 0, LocalDate.of(2015, 3, 9));
+        Checkout jakd = new Checkout(RentalEnums.ToolCode.JAKD.name(), 6, 0, LocalDate.of(2015, 3, 9));
         RentalAgreement rentalAgreement = agreementService.checkOut(jakd);
         assertEquals(getFinalValue("15.00"), rentalAgreement.getFinalCharge());
         assertEquals(0, rentalAgreement.getDiscountPercent());
@@ -55,7 +55,7 @@ public class ToolRentalApplicationTests {
     @Test
     public void testJAKRWithoutDiscount() {
         AgreementService agreementService = new AgreementService();
-        Checkout jakd = new Checkout("JAKD", 9, 0, LocalDate.of(2015, 2, 7));
+        Checkout jakd = new Checkout(RentalEnums.ToolCode.JAKR.name(), 9, 0, LocalDate.of(2015, 2, 7));
         RentalAgreement rentalAgreement = agreementService.checkOut(jakd);
         assertEquals(getFinalValue("15.00"), rentalAgreement.getFinalCharge());
         assertEquals(0, rentalAgreement.getDiscountPercent());
@@ -64,7 +64,7 @@ public class ToolRentalApplicationTests {
     @Test
     public void testHolidayChargesIsApplicable() {
         AgreementService agreementService = new AgreementService();
-        Checkout chns = new Checkout("CHNS", 3, 10, LocalDate.of(2023, 7, 4));
+        Checkout chns = new Checkout(RentalEnums.ToolCode.CHNA.name(), 3, 10, LocalDate.of(2023, 7, 4));
         RentalAgreement rentalAgreement = agreementService.checkOut(chns);
         assertEquals(getFinalValue("5.40"), rentalAgreement.getFinalCharge());
         assertEquals(new BigDecimal("0.60"), rentalAgreement.getDiscountAmount());
@@ -74,7 +74,7 @@ public class ToolRentalApplicationTests {
     @Test
     public void testHolidayChargesIsNotApplicable() {
         AgreementService agreementService = new AgreementService();
-        Checkout ladw = new Checkout("LADW", 5, 10, LocalDate.of(2023, 7, 4));
+        Checkout ladw = new Checkout(RentalEnums.ToolCode.LADW.name(), 5, 10, LocalDate.of(2023, 7, 4));
         RentalAgreement rentalAgreement = agreementService.checkOut(ladw);
         assertEquals(getFinalValue("14.40"), rentalAgreement.getFinalCharge());
     }
@@ -82,7 +82,7 @@ public class ToolRentalApplicationTests {
     @Test
     public void testThrowErrorIfInvalidDaysPassed() {
         AgreementService agreementService = new AgreementService();
-        Checkout ladw = new Checkout("LADW", 0, 10, LocalDate.of(2023, 7, 4));
+        Checkout ladw = new Checkout(RentalEnums.ToolCode.LADW.name(), 0, 10, LocalDate.of(2023, 7, 4));
         Throwable exception = assertThrows(RequestException.class, () -> agreementService.checkOut(ladw));
         assertEquals("Rental days should be 1 or more.", exception.getMessage());
     }
@@ -91,7 +91,7 @@ public class ToolRentalApplicationTests {
     @Test
     public void testThrowErrorIfInvalidDiscountPassed() {
         AgreementService agreementService = new AgreementService();
-        Checkout ladw = new Checkout("LADW", 5, 101, LocalDate.of(2023, 7, 4));
+        Checkout ladw = new Checkout(RentalEnums.ToolCode.LADW.name(), 5, 101, LocalDate.of(2023, 7, 4));
         Throwable exception = assertThrows(RequestException.class, () -> agreementService.checkOut(ladw));
         assertEquals("Discount percent is not in the range, (0-100)", exception.getMessage());
     }
