@@ -22,12 +22,12 @@ public class ToolsUtil {
 
 
     /**
-     * this method is used to format LocalDate in DDMMYY format
-     * @param date - A date which will be formatted into DDMMYY
-     * @return - return the date in DDMMYY formate
+     * this method is used to format LocalDate in MMDDYY format
+     * @param date - A date which will be formatted into MMDDYY
+     * @return - return the date in MMDDYY formate
      */
     public static String getFormattedDateDDMMYY(LocalDate date) {
-        DateTimeFormatter formatters = DateTimeFormatter.ofPattern("dd/MM/yy");
+        DateTimeFormatter formatters = DateTimeFormatter.ofPattern("MM/dd/yy");
         return date.format(formatters);
     }
 

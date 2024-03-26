@@ -3,15 +3,19 @@ package com.tool.rental.model;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
+/**
+ * This class is used to generate Rent agreement, this class contains all the required
+ * information which is needed to generate rent agreement like rental date, discount etc.
+ */
 public class RentalAgreement {
 
     private String toolCode;
-    private int rentalDays;
-    private int discountPercent;
+    private Integer rentalDays;
+    private Integer discountPercent;
     private String checkoutDate;
     private LocalDate dueDate;
     private BigDecimal dailyRentalCharge;
-    private int chargeDays;
+    private Integer chargeDays;
     private BigDecimal preDiscountCharge;
     private BigDecimal discountAmount;
     private String finalCharge;
@@ -26,19 +30,19 @@ public class RentalAgreement {
         this.toolCode = toolCode;
     }
 
-    public int getRentalDays() {
+    public Integer getRentalDays() {
         return rentalDays;
     }
 
-    public void setRentalDays(int rentalDays) {
+    public void setRentalDays(Integer rentalDays) {
         this.rentalDays = rentalDays;
     }
 
-    public int getDiscountPercent() {
+    public Integer getDiscountPercent() {
         return discountPercent;
     }
 
-    public void setDiscountPercent(int discountPercent) {
+    public void setDiscountPercent(Integer discountPercent) {
         this.discountPercent = discountPercent;
     }
 
@@ -66,11 +70,11 @@ public class RentalAgreement {
         this.dailyRentalCharge = dailyRentalCharge;
     }
 
-    public int getChargeDays() {
+    public Integer getChargeDays() {
         return chargeDays;
     }
 
-    public void setChargeDays(int chargeDays) {
+    public void setChargeDays(Integer chargeDays) {
         this.chargeDays = chargeDays;
     }
 
@@ -117,4 +121,18 @@ public class RentalAgreement {
                 ", finalCharge=" + finalCharge +
                 '}';
     }
+
+
+    /**
+     * print mandatory information on console
+     * @param rentalAgreement - RenalAgreement class object which contains all the information of rent agreement
+     */
+    public void printCheckOutAgreement() {
+        System.out.println("Tool code: "+this.getToolCode());
+        System.out.println("Tool type: "+this.getToolType());
+        System.out.println("Checkout date: "+this.getCheckoutDate());
+        System.out.println("Discount Percent: "+this.getDiscountPercent()+"%");
+        System.out.println("Final Charge: "+this.getFinalCharge());
+    }
+
 }

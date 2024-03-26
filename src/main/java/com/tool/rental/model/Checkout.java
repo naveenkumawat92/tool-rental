@@ -6,8 +6,8 @@ import java.time.LocalDate;
 public class Checkout {
 
     public String toolCode;
-    public int rentalDay;
-    public int discountPer;
+    public Integer rentalDay;
+    public Integer discountPer;
     public LocalDate checkOutDate;
 
     public Checkout() {

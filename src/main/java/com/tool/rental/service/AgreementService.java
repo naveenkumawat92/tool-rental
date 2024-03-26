@@ -63,7 +63,6 @@ public class AgreementService {
             BigDecimal finalCharge = preDiscountAmount.subtract(discountAmount);
             rentalAgreement.setFinalCharge(finalCharge.toPlainString() + "$");
             rentalAgreement.setToolType(tool.getToolType().getToolTypeName());
-            printCheckOutAgreement(rentalAgreement);
 //            System.out.println(rentalAgreement);
             return rentalAgreement;
     }
@@ -77,7 +76,7 @@ public class AgreementService {
     private static void preCheckoutValidation(Checkout checkout) {
 
         if (Objects.isNull(checkout)) {
-            throw new RequestException("Bad Request, Checkout object is missing");
+            throw new RequestException("Bad Request, Checkout details is missing");
         }
 
         if (checkout.getToolCode() == null || checkout.getToolCode().equals("")) {
@@ -98,17 +97,7 @@ public class AgreementService {
     }
 
 
-    /**
-     * print mandatory information on console
-     * @param rentalAgreement - RenalAgreement class object which contains all the information of rent agreement
-     */
-    private void printCheckOutAgreement(RentalAgreement rentalAgreement) {
-        System.out.println("Tool code: "+rentalAgreement.getToolCode());
-        System.out.println("Tool type: "+rentalAgreement.getToolType());
-        System.out.println("Checkout date: "+rentalAgreement.getCheckoutDate());
-        System.out.println("Discount Percent: "+rentalAgreement.getDiscountPercent()+"%");
-        System.out.println("Final Charge: "+rentalAgreement.getFinalCharge());
-    }
+
 
 }
 

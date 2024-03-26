@@ -21,7 +21,7 @@ public class DataService {
      */
     public Map<String, Tool> getAllTools() {
         Map<String, Tool> data = new HashMap<>();
-        data.put(RentalEnums.ToolCode.CHNA.name(), new Tool(RentalEnums.ToolCode.CHNA.name(), getToolTypeByName(RentalEnums.ToolTypes.CHAINSAW.name()), RentalEnums.Brands.STIHL));
+        data.put(RentalEnums.ToolCode.CHNS.name(), new Tool(RentalEnums.ToolCode.CHNS.name(), getToolTypeByName(RentalEnums.ToolTypes.CHAINSAW.name()), RentalEnums.Brands.STIHL));
         data.put(RentalEnums.ToolCode.LADW.name(), new Tool(RentalEnums.ToolCode.LADW.name(), getToolTypeByName(RentalEnums.ToolTypes.LADDER.name()), RentalEnums.Brands.WERNER));
         data.put(RentalEnums.ToolCode.JAKD.name(), new Tool(RentalEnums.ToolCode.JAKD.name(), getToolTypeByName(RentalEnums.ToolTypes.JACKHAMMER.name()), RentalEnums.Brands.RIDGID));
         data.put(RentalEnums.ToolCode.JAKR.name(), new Tool(RentalEnums.ToolCode.JAKR.name(), getToolTypeByName(RentalEnums.ToolTypes.JACKHAMMER.name()),  RentalEnums.Brands.RIDGID));
