@@ -2,6 +2,10 @@ package com.tool.rental.model;
 
 import java.time.LocalDate;
 
+/**
+ * this class contains all the required properties which is required for checkout
+ * and this information is also needed to initiate rent agreement process
+ */
 
 public class Checkout {
 

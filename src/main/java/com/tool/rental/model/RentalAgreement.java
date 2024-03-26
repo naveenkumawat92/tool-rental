@@ -124,8 +124,8 @@ public class RentalAgreement {
 
 
     /**
-     * print mandatory information on console
-     * @param rentalAgreement - RenalAgreement class object which contains all the information of rent agreement
+     * this method is used to print rent agreement information on console
+     *
      */
     public void printCheckOutAgreement() {
         System.out.println("Tool code: "+this.getToolCode());
