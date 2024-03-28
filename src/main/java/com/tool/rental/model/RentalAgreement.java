@@ -14,7 +14,7 @@ public class RentalAgreement {
     private Integer discountPercent;
     private String checkoutDate;
     private LocalDate dueDate;
-    private BigDecimal dailyRentalCharge;
+    private Double dailyRentalCharge;
     private Integer chargeDays;
     private BigDecimal preDiscountCharge;
     private BigDecimal discountAmount;
@@ -62,11 +62,11 @@ public class RentalAgreement {
         this.dueDate = dueDate;
     }
 
-    public BigDecimal getDailyRentalCharge() {
+    public Double getDailyRentalCharge() {
         return dailyRentalCharge;
     }
 
-    public void setDailyRentalCharge(BigDecimal dailyRentalCharge) {
+    public void setDailyRentalCharge(Double dailyRentalCharge) {
         this.dailyRentalCharge = dailyRentalCharge;
     }
 
@@ -133,6 +133,10 @@ public class RentalAgreement {
         System.out.println("Checkout date: "+this.getCheckoutDate());
         System.out.println("Discount Percent: "+this.getDiscountPercent()+"%");
         System.out.println("Final Charge: "+this.getFinalCharge());
+        System.out.println("Discount Amount: "+this.getDiscountAmount());
+        System.out.println("Daily Rental Charges: "+this.getDailyRentalCharge());
+        System.out.println("Pre Discount charge: "+this.getPreDiscountCharge());
+        System.out.println("Rental Days: "+this.getRentalDays());
     }
 
 }

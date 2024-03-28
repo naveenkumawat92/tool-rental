@@ -42,7 +42,7 @@ public class AgreementService {
             rentalAgreement.setToolCode(tool.getToolCode());
             rentalAgreement.setRentalDays(checkout.getRentalDay());
             // convert checkout date in DDMMYY
-            rentalAgreement.setCheckoutDate(ToolsUtil.getFormattedDateDDMMYY(checkout.getCheckOutDate()));
+            rentalAgreement.setCheckoutDate(ToolsUtil.getFormattedDateMMDDYY(checkout.getCheckOutDate()));
 
             LocalDate dueDate = checkout.getCheckOutDate().plusDays(checkout.getRentalDay() - 1);
             rentalAgreement.setDueDate(dueDate);
@@ -50,6 +50,7 @@ public class AgreementService {
             // calculate chargeable days
             int chargeableDays = ToolsUtil.calculateChargeableDays(checkout.getCheckOutDate(), dueDate, tool.getToolType());
             rentalAgreement.setChargeDays(chargeableDays);
+            rentalAgreement.setDailyRentalCharge(tool.getToolType().getDailyRentalCharge());
 
             BigDecimal preDiscountAmount = BigDecimal.valueOf(chargeableDays).multiply(BigDecimal.valueOf(tool.getToolType().getDailyRentalCharge()));
             rentalAgreement.setPreDiscountCharge(preDiscountAmount);
@@ -61,7 +62,7 @@ public class AgreementService {
             rentalAgreement.setDiscountAmount(discountAmount);
 
             BigDecimal finalCharge = preDiscountAmount.subtract(discountAmount);
-            rentalAgreement.setFinalCharge(finalCharge.toPlainString() + "$");
+            rentalAgreement.setFinalCharge(ToolsUtil.getFinalChargesValue(finalCharge));
             rentalAgreement.setToolType(tool.getToolType().getToolTypeName());
 //            System.out.println(rentalAgreement);
             return rentalAgreement;

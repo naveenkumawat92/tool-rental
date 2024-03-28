@@ -1,18 +1,15 @@
 package com.tool.rental.util;
 
-import com.tool.rental.exception.RequestException;
-import com.tool.rental.model.Tool;
-import com.tool.rental.model.RentalEnums;
 import com.tool.rental.model.ToolType;
 
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.Month;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAdjuster;
 import java.time.temporal.TemporalAdjusters;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * This class contains all the util method
@@ -20,13 +17,14 @@ import java.util.Map;
 public class ToolsUtil {
 
 
+    private final static String currency = "$";
 
     /**
      * this method is used to format LocalDate in MMDDYY format
      * @param date - A date which will be formatted into MMDDYY
      * @return - return the date in MMDDYY formate
      */
-    public static String getFormattedDateDDMMYY(LocalDate date) {
+    public static String getFormattedDateMMDDYY(LocalDate date) {
         DateTimeFormatter formatters = DateTimeFormatter.ofPattern("MM/dd/yy");
         return date.format(formatters);
     }
@@ -87,6 +85,13 @@ public class ToolsUtil {
     public static boolean isWeekday(LocalDate date) {
         DayOfWeek dayOfWeek = date.getDayOfWeek();
         return dayOfWeek != DayOfWeek.SATURDAY && dayOfWeek != DayOfWeek.SUNDAY;
+    }
+
+    public static String getFinalChargesValue(BigDecimal finalCharges) {
+//        String number = "1000500000.574";
+//        double amount = Double.parseDouble(number);
+        DecimalFormat formatter = new DecimalFormat("#,###.00");
+        return currency+formatter.format(finalCharges);
     }
 }
 

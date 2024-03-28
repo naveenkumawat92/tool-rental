@@ -20,7 +20,7 @@ public class ToolRentalApplicationTests {
     @Test
     public void testWeekDayIsChargeable() {
         AgreementService agreementService = new AgreementService();
-        Checkout jakr = new Checkout(RentalEnums.ToolCode.JAKR.name(),  5, 25, LocalDate.of(2015, 3, 9));
+        Checkout jakr = new Checkout(RentalEnums.ToolCode.JAKR.name(),  1000, 25, LocalDate.of(2015, 3, 9));
         RentalAgreement rentalAgreement = agreementService.checkOut(jakr);
         rentalAgreement.printCheckOutAgreement();
         assertNotNull(rentalAgreement);
@@ -112,7 +112,8 @@ public class ToolRentalApplicationTests {
         assertEquals("Discount percent is not in the range, (0-100)", exception.getMessage());
     }
     private String getFinalValue(String value) {
-        return new BigDecimal(value).toPlainString() + currency;
+        String amount = new BigDecimal(value).toPlainString();
+        return currency+amount ;
     }
 
 }

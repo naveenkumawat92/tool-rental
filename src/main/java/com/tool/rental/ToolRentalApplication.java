@@ -10,7 +10,7 @@ import java.time.LocalDate;
 public class ToolRentalApplication {
 
 	public static void main(String[] args) {
-		Checkout jakr = new Checkout("JAKR",3,12, LocalDate.now());
+		Checkout jakr = new Checkout("JAKR",10000,12, LocalDate.now());
 		Checkout ladw = new Checkout(null,5,0, LocalDate.of(2023, 7, 4));
 		Checkout chns = new Checkout("CHNS",5,25, LocalDate.of(2023, 7, 4));
 		try {
