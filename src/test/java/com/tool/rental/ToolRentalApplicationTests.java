@@ -82,7 +82,7 @@ public class ToolRentalApplicationTests {
         RentalAgreement rentalAgreement = agreementService.checkOut(chns);
         rentalAgreement.printCheckOutAgreement();
         assertEquals(getFinalValue("5.40"), rentalAgreement.getFinalCharge());
-        assertEquals(new BigDecimal("0.60"), rentalAgreement.getDiscountAmount());
+        assertEquals("$.60", rentalAgreement.getDiscountAmount());
     }
 
 

@@ -14,18 +14,32 @@ import java.util.Map;
  */
 public class DataService {
 
+    private static Map<String, Tool> toolsMap;
+    private static Map<String, ToolType> toolTypessMap;
+
+    static {
+        toolTypessMap = new HashMap<>();
+        toolTypessMap.put(RentalEnums.ToolTypes.CHAINSAW.name(), new ToolType(RentalEnums.ToolTypes.CHAINSAW.name(), 2d, true, false, true));
+        toolTypessMap.put(RentalEnums.ToolTypes.LADDER.name(), new ToolType(RentalEnums.ToolTypes.LADDER.name(), 4d, true, true, false));
+        toolTypessMap.put(RentalEnums.ToolTypes.JACKHAMMER.name(), new ToolType(RentalEnums.ToolTypes.JACKHAMMER.name(), 3d, true, false, false));
+
+        toolsMap = new HashMap<>();
+        toolsMap.put(RentalEnums.ToolCode.CHNS.name(), new Tool(RentalEnums.ToolCode.CHNS.name(), getToolTypeByName(RentalEnums.ToolTypes.CHAINSAW.name()), RentalEnums.Brands.STIHL));
+        toolsMap.put(RentalEnums.ToolCode.LADW.name(), new Tool(RentalEnums.ToolCode.LADW.name(), getToolTypeByName(RentalEnums.ToolTypes.LADDER.name()), RentalEnums.Brands.WERNER));
+        toolsMap.put(RentalEnums.ToolCode.JAKD.name(), new Tool(RentalEnums.ToolCode.JAKD.name(), getToolTypeByName(RentalEnums.ToolTypes.JACKHAMMER.name()), RentalEnums.Brands.RIDGID));
+        toolsMap.put(RentalEnums.ToolCode.JAKR.name(), new Tool(RentalEnums.ToolCode.JAKR.name(), getToolTypeByName(RentalEnums.ToolTypes.JACKHAMMER.name()), RentalEnums.Brands.RIDGID));
+
+
+    }
+
+
     /**
      * this method contains all the tools data, Data is prepared using map, where key is unique ToolCode
      * and value will contain a Tool object which contains the information of tool
      * @return - returning a map of tools
      */
     public Map<String, Tool> getAllTools() {
-        Map<String, Tool> data = new HashMap<>();
-        data.put(RentalEnums.ToolCode.CHNS.name(), new Tool(RentalEnums.ToolCode.CHNS.name(), getToolTypeByName(RentalEnums.ToolTypes.CHAINSAW.name()), RentalEnums.Brands.STIHL));
-        data.put(RentalEnums.ToolCode.LADW.name(), new Tool(RentalEnums.ToolCode.LADW.name(), getToolTypeByName(RentalEnums.ToolTypes.LADDER.name()), RentalEnums.Brands.WERNER));
-        data.put(RentalEnums.ToolCode.JAKD.name(), new Tool(RentalEnums.ToolCode.JAKD.name(), getToolTypeByName(RentalEnums.ToolTypes.JACKHAMMER.name()), RentalEnums.Brands.RIDGID));
-        data.put(RentalEnums.ToolCode.JAKR.name(), new Tool(RentalEnums.ToolCode.JAKR.name(), getToolTypeByName(RentalEnums.ToolTypes.JACKHAMMER.name()),  RentalEnums.Brands.RIDGID));
-        return data;
+        return toolsMap;
     }
 
     /**
@@ -34,12 +48,8 @@ public class DataService {
      * Map contains key as ToolType name which is unique, and value is ToolType Object
      * @return - returning a map of all the toolTypes
      */
-    public Map<String, ToolType> getAllToolTypes() {
-        Map<String, ToolType> data = new HashMap<>();
-        data.put(RentalEnums.ToolTypes.CHAINSAW.name(), new ToolType(RentalEnums.ToolTypes.CHAINSAW.name(), 2d, true,false,true));
-        data.put(RentalEnums.ToolTypes.LADDER.name(), new ToolType(RentalEnums.ToolTypes.LADDER.name(), 4d, true,true,false));
-        data.put(RentalEnums.ToolTypes.JACKHAMMER.name(), new ToolType(RentalEnums.ToolTypes.JACKHAMMER.name(), 3d, true,false,false));
-        return data;
+    public static Map<String, ToolType> getAllToolTypes() {
+        return toolTypessMap;
     }
 
 
@@ -63,7 +73,7 @@ public class DataService {
      * @param toolType - A unique identifier for each toolType
      * @return - returns the ToolType class object for the given toolType.
      */
-    public ToolType getToolTypeByName(String toolType) {
+    public static ToolType getToolTypeByName(String toolType) {
         if (getAllToolTypes().containsKey(toolType)) {
             return getAllToolTypes().get(toolType);
         } else {

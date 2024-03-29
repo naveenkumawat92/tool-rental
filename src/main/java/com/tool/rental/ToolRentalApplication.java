@@ -4,6 +4,7 @@ import com.tool.rental.exception.RequestException;
 import com.tool.rental.model.Checkout;
 import com.tool.rental.model.RentalAgreement;
 import com.tool.rental.service.AgreementService;
+import com.tool.rental.service.DataService;
 
 import java.time.LocalDate;
 
@@ -15,6 +16,7 @@ public class ToolRentalApplication {
 		Checkout chns = new Checkout("CHNS",5,25, LocalDate.of(2023, 7, 4));
 		try {
 			AgreementService agreementService = new AgreementService();
+			DataService dataService = new DataService();
 			RentalAgreement rentalAgreement = agreementService.checkOut(jakr);
 			rentalAgreement.printCheckOutAgreement();
 		} catch (RequestException requestException) {

@@ -41,25 +41,26 @@ public class AgreementService {
 
             rentalAgreement.setToolCode(tool.getToolCode());
             rentalAgreement.setRentalDays(checkout.getRentalDay());
-            // convert checkout date in DDMMYY
+            // convert checkout date in MMDDYY
             rentalAgreement.setCheckoutDate(ToolsUtil.getFormattedDateMMDDYY(checkout.getCheckOutDate()));
 
             LocalDate dueDate = checkout.getCheckOutDate().plusDays(checkout.getRentalDay() - 1);
-            rentalAgreement.setDueDate(dueDate);
+            rentalAgreement.setDueDate(ToolsUtil.getFormattedDateMMDDYY(dueDate));
 
             // calculate chargeable days
             int chargeableDays = ToolsUtil.calculateChargeableDays(checkout.getCheckOutDate(), dueDate, tool.getToolType());
             rentalAgreement.setChargeDays(chargeableDays);
-            rentalAgreement.setDailyRentalCharge(tool.getToolType().getDailyRentalCharge());
+            rentalAgreement.setBrandName(tool.getBrand().name());
+            rentalAgreement.setDailyRentalCharge(ToolsUtil.getFinalChargesValue(new BigDecimal(tool.getToolType().getDailyRentalCharge())));
 
             BigDecimal preDiscountAmount = BigDecimal.valueOf(chargeableDays).multiply(BigDecimal.valueOf(tool.getToolType().getDailyRentalCharge()));
-            rentalAgreement.setPreDiscountCharge(preDiscountAmount);
+            rentalAgreement.setPreDiscountCharge(ToolsUtil.getFinalChargesValue(preDiscountAmount));
 
 //            rentalAgreement.setDailyRentalCharge(BigDecimal.valueOf(tool.getToolType().getDailyRentalCharge()));
             rentalAgreement.setDiscountPercent(checkout.getDiscountPer());
             BigDecimal discountAmount = preDiscountAmount.multiply(BigDecimal.valueOf(checkout.getDiscountPer()))
                     .divide(BigDecimal.valueOf(100), 2, RoundingMode.HALF_UP);
-            rentalAgreement.setDiscountAmount(discountAmount);
+            rentalAgreement.setDiscountAmount(ToolsUtil.getFinalChargesValue(discountAmount));
 
             BigDecimal finalCharge = preDiscountAmount.subtract(discountAmount);
             rentalAgreement.setFinalCharge(ToolsUtil.getFinalChargesValue(finalCharge));
